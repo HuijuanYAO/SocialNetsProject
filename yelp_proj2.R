@@ -97,3 +97,26 @@ edgesAtt <- data.frame(sapply(eAttrNames, function(attr) sub("&", "&#038;",get.e
                        nodesAtt = nodesAtt)
   
   print(output, "g.gexf", replace=T)  
+		     
+		     
+		     
+		
+# degree centralization measure, use sort and decreasing option for rank
+sort(degree(g),decreasing=TRUE)
+# use table to get a degree distribution
+table(degree(g))
+# plot the degree distribution in R
+plot(degree_distribution(g))
+		     		     
+# closeness centrality, use mode option for undirected paths 
+# and use sort and decreasing option for rank
+sort(closeness(g, mode="all"), decreasing = TRUE)
+		     
+# community detection		     
+community4 = walktrap.community(g,weights = E(g)$weight, steps=10)
+community4$membership
+#community4$modularity
+
+plot(g,
+     vertex.color = community4$membership, vertex.size = log(degree(g) + 1),
+     layout=layout.fruchterman.reingold, vertex.label=NA)
